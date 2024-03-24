@@ -4,17 +4,17 @@
     <div class="logo">
       <el-image src="/src/assets/Conversation icon.png" fit="fill" :lazy="true"></el-image>
     </div>
-    <el-form >
-        <el-form-item>
-          <el-input class="input" placeholder="用户名" :prefix-icon="User"/>
+    <el-form ref="formRef" :model="form" :rules="rules">
+        <el-form-item prop="username">
+          <el-input class="input" v-model="form.username" placeholder="用户名" :prefix-icon="User"/>
         </el-form-item>    
       </el-form>
       <el-form>
-        <el-form-item>
-          <el-input class="input" placeholder="密码" :prefix-icon="Lock"/>
+        <el-form-item prop="password">
+          <el-input class="input" v-model="form.password" placeholder="密码" :prefix-icon="Lock"/>
         </el-form-item>
         <div class="btns">
-          <el-button type="primary" class="btn">登录</el-button>
+          <el-button type="primary"  class="btn">登录</el-button>
           <div class="btn reset">重置</div>
         </div>      
       </el-form>
@@ -24,6 +24,21 @@
 
 <script setup lang="ts">
 import {User , Lock} from "@element-plus/icons-vue"
+import { rules } from "@/rules/userinfo"
+import type {FormInstance} from "element-plus"
+import { ref } from "vue";
+interface Form {
+  username: string;
+  password: string;
+}
+
+const form = ref<Form> ({
+  username: "",
+  password: "",
+});
+
+const formRef = ref<FormInstance>();
+
 </script>
 
 <style lang="scss" scoped>
