@@ -15,6 +15,8 @@
         </el-form-item>
         <div class="btns">
           <el-button type="primary"  class="btn" @click="login">登录</el-button>
+          <el-button type="primary"  class="btn" @click="test">测试跳转</el-button>
+
           <div class="btn reset">重置</div>
         </div>      
       </el-form>
@@ -25,10 +27,14 @@
 <script setup lang="ts">
 import {User , Lock} from "@element-plus/icons-vue"
 import { rules } from "@/rules/userinfo"
-import type {FormInstance} from "element-plus"
+import {ElMessage, type FormInstance} from "element-plus"
 import { ref } from "vue";
 import { loginApi } from "@/apis/login";
-import {useUserInfoStore} from "@/stores/userinfo.store"
+import { useUserInfoStore } from "@/stores/userinfo.store";
+import router from "@/router";
+
+const userInfoStore = useUserInfoStore();
+
 interface Form {
   username: string;
   password: string;
@@ -41,8 +47,15 @@ const form = ref<Form> ({
 
   const login = async () =>  {
     const res=await loginApi(form.value);
-    console.log(res)
+    userInfoStore.setAuth(res.data); 
+    ElMessage.success("登录成功!")
+    router.push("/home")
   }
+  const test = async () => {
+    ElMessage.success("登录成功")
+    router.push("/home")
+  }
+
 
 
 const formRef = ref<FormInstance>();
