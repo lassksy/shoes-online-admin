@@ -8,7 +8,9 @@
         <el-affix width="200px">
           <AdminMenu />
         </el-affix>
-        <el-main>Main</el-main>
+        <el-main>
+          <RouterView></RouterView>
+        </el-main>
       </el-container>
     </el-container>
   </div>

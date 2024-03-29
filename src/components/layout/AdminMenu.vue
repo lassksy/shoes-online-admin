@@ -1,7 +1,7 @@
 <template>
   <div id="menu">
-    <el-menu active-text-color="#fff" background-color="#2b2c44" class="el-menu-vertical-demo" default-active="2"
-      text-color="#c1c1c1">
+    <el-menu active-text-color="#fff" background-color="#2b2c44" class="el-menu-vertical-demo"
+      :default-active="defaultActive" text-color="#c1c1c1" router>
       <component :is="item.children?ElSubMenu:ElMenuItem" v-for="item in menulist" :key="item.id" :index="item.index">
         <template v-if="item.children" #title>
           <el-icon v-if="item.icon">
@@ -23,9 +23,12 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import type { Component } from 'vue';
 import { House, User, Goods } from '@element-plus/icons-vue';
 import { ElSubMenu, ElMenuItem } from 'element-plus';
+import router from '@/router';
+const defaultActive = ref<string>(router.currentRoute.value.path);
 interface MenuItem {
   id: number,
   name: string,
