@@ -1,9 +1,9 @@
 <template>
     <div id="overview">
         <div class="userinfo">
-            <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
+            <el-avatar :src="userInfoStore.userinfo?.avater" />
 
-            <span class="username">xxx </span>
+            <span class="username">{{ userInfoStore.userinfo?.nickname }} </span>
         </div>
         <div class="overview-list">
             <div class="overview-item" v-for="item in  overviewData.allData" :key="item.id">
@@ -22,6 +22,11 @@
 </template>
 
 <script setup lang="ts">
+import { useUserInfoStore } from '@/stores/userinfo.store';
+
+const userInfoStore = useUserInfoStore();
+
+
 import { ref } from 'vue';
 interface SingleData {
     id: number;
